@@ -8,6 +8,7 @@ import {
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faTrash, faUpload} from '@fortawesome/free-solid-svg-icons';
+import { nanoid } from "@reduxjs/toolkit";
 
 function TodoList(){
     const [newTodo, setNewTodo] = useState('')
@@ -25,7 +26,7 @@ function TodoList(){
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        addTodo({id: 1, title: "added", completed: false})
+        addTodo({id: `${todos.length}`, title: newTodo, completed: false})
         setNewTodo('');
     }
 
@@ -63,7 +64,10 @@ function TodoList(){
                         <label htmlFor={todo.id}>{todo.title}</label>
                         
                     </div>
-                    <button className="trash" onClick={()=>deleteTodo({id:todo.id})}>
+                    <button className="trash" onClick={()=>{
+                        console.log(`todos/${todo.id}`)
+                        deleteTodo({id:todo.id})
+                    }}>
                             <FontAwesomeIcon icon={faTrash} />
                         </button>
                 </article>
